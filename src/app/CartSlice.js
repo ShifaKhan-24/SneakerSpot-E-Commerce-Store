@@ -71,8 +71,12 @@ const CartSlice = createSlice({
       }
     },
     setClearCartItems: (state, action) => {
-      state.cartItems = [];
-      toast.success(`Cart Cleared `);
+      if (state.cartItems.length > 0) {
+        state.cartItems = [];
+        toast.success(`Cart Cleared `);
+      } else {
+        toast.error(`Cart Already Empty`);
+      }
       localStorage.setItem("cart", JSON.stringify(state.cartItems));
     },
     setGetTotals: (state, action) => {
